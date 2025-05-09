@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "outDir": "dist",
+    "lib": ["ESNext"],
+    "sourceMap": true,
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "types": ["vite/client", "node"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", ".vscode-test"]
+} 
