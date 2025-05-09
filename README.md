@@ -41,7 +41,7 @@ Right-click in the editor to access:
 ### Setup
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/vscode-vue-migrator.git
+git clone https://github.com/dimgolsh/vscode-vue-migrator.git
 cd vscode-vue-migrator
 ```
 
