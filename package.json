@@ -3,7 +3,7 @@
   "displayName": "Vue Migrator",
   "author": "Dmitriy (https://github.com/dimgolsh)",
   "description": "VS Code extension to convert Vue components to script setup syntax",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.96.1"
@@ -81,6 +81,22 @@
           "group": "vue-migrator@3"
         }
       ]
+    },
+    "configuration": {
+      "title": "Vue Migrator",
+      "properties": {
+        "vueMigrator.propsStyle": {
+          "type": "string",
+          "default": "reactivity",
+          "enum": ["reactivity", "defineProps", "withDefaults"],
+          "enumDescriptions": [
+            "Convert props to reactivity style (const { prop } = defineProps<{ prop: string }>())",
+            "Use defineProps with type annotations",
+            "Use defineProps with withDefaults"
+          ],
+          "description": "The style to use when converting props in Vue components"
+        }
+      }
     }
   },
   "scripts": {

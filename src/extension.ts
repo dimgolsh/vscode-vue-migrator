@@ -9,6 +9,22 @@ import {
 import { registerI18nCommands } from "./i18n-converter";
 import { formatDocument } from "./utils";
 
+function getPropsStyleFromConfig(): PropsStyle {
+  const config = vscode.workspace.getConfiguration("vueMigrator");
+  const propsStyle = config.get<string>("propsStyle", "reactivity");
+  
+  switch (propsStyle) {
+    case "reactivity":
+      return PropsStyle.ReactivityProps;
+    case "defineProps":
+      return PropsStyle.DefinePropsOptions;
+    case "withDefaults":
+      return PropsStyle.WithDefaults;
+    default:
+      return PropsStyle.ReactivityProps;
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   let convertToSetupDisposable = vscode.commands.registerCommand(
     "vscode-vue-migrator.convertToSetup",
@@ -31,7 +47,10 @@ export function activate(context: vscode.ExtensionContext) {
 
       try {
         const text = document.getText();
-        const converted = await convert(text);
+        const converted = await convert(text, {
+          propsStyle: getPropsStyleFromConfig(),
+          propsOptionsLike: false,
+        });
 
         const edit = new vscode.WorkspaceEdit();
         const fullRange = new vscode.Range(
@@ -122,7 +141,7 @@ export function activate(context: vscode.ExtensionContext) {
         const options: ConvertFileOptions = {
           view: false,
           propsOptionsLike: false,
-          propsStyle: PropsStyle.ReactivityProps,
+          propsStyle: getPropsStyleFromConfig(),
         };
         const result = await convertFolder(folderPath, options);
 
