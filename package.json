@@ -107,7 +107,7 @@
     "vue-comp-to-setup": "^1.2.12",
     "vue-i18n-migrator": "^1.0.0"
   },
-  "publisher": "dimgolsh",
+  "publisher": "dmgolsh",
   "repository": {
     "type": "git",
     "url": "https://github.com/dimgolsh/vscode-vue-migrator"
