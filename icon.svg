@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" fill="#34495E"/>
+  
+  <!-- Vue Logo -->
+  <g transform="translate(24, 20) scale(0.8)">
+    <path d="M64 0L51.2 22.4H32L64 89.6 96 22.4H76.8L64 0z" fill="#41B883"/>
+    <path d="M64 0L51.2 22.4H32L64 89.6 96 22.4H76.8L64 0z" fill="#35495E"/>
+    <path d="M51.2 22.4L64 0 76.8 22.4H51.2z" fill="#41B883"/>
+  </g>
+  
+  <!-- Text "Migrator" -->
+  <text x="64" y="110" 
+        font-family="Arial, sans-serif" 
+        font-size="16" 
+        fill="white" 
+        text-anchor="middle">Migrator</text>
+</svg> 
