@@ -13,6 +13,11 @@ const readdir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
+function getLegacyFromConfig(): boolean {
+  const config = vscode.workspace.getConfiguration("vueMigrator");
+  return config.get<boolean>("legacy", false);
+}
+
 async function convertI18nFolderSafe(folderPath: string): Promise<void> {
   try {
     // Конвертируем папку с базовыми опциями
@@ -39,10 +44,10 @@ async function findVueFiles(folderPath: string): Promise<string[]> {
   const scanDirectory = async (dirPath: string): Promise<void> => {
     try {
       const entries = await readdir(dirPath, { withFileTypes: true });
-      
+
       for (const entry of entries) {
         const fullPath = path.join(dirPath, entry.name);
-        
+
         if (entry.isDirectory()) {
           await scanDirectory(fullPath);
         } else if (entry.isFile() && entry.name.endsWith(".vue")) {
@@ -81,7 +86,9 @@ export function registerI18nCommands(context: vscode.ExtensionContext) {
 
       try {
         const text = document.getText();
-        const converted = await convert(text);
+        const converted = await convert(text, {
+          legacy: getLegacyFromConfig(),
+        });
 
         const edit = new vscode.WorkspaceEdit();
         const fullRange = new vscode.Range(
@@ -145,11 +152,14 @@ export function registerI18nCommands(context: vscode.ExtensionContext) {
 
                 try {
                   const content = await readFile(file, "utf-8");
-                  const converted = await convert(content);
+                  const converted = await convert(content, {
+                    legacy: getLegacyFromConfig(),
+                  });
                   await writeFile(file, converted.content, "utf-8");
 
                   // Форматируем файл после конвертации
-                  const document = await vscode.workspace.openTextDocument(file);
+                  const document =
+                    await vscode.workspace.openTextDocument(file);
                   await formatDocument(document);
                 } catch (fileError) {
                   console.error(`Error converting file ${file}:`, fileError);
