@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import {
-  convert,
   definePropsToReactivityProps,
   convertFolder,
+  convertSingleFile,
   type ConvertFileOptions,
   PropsStyle,
 } from "vue-comp-to-setup";
@@ -12,7 +12,7 @@ import { formatDocument } from "./utils";
 function getPropsStyleFromConfig(): PropsStyle {
   const config = vscode.workspace.getConfiguration("vueMigrator");
   const propsStyle = config.get<string>("propsStyle", "reactivity");
-  
+
   switch (propsStyle) {
     case "reactivity":
       return PropsStyle.ReactivityProps;
@@ -25,48 +25,51 @@ function getPropsStyleFromConfig(): PropsStyle {
   }
 }
 
+async function convertVueFile(uri: vscode.Uri): Promise<void> {
+  try {
+    await convertSingleFile(uri.fsPath, {
+      propsStyle: getPropsStyleFromConfig(),
+      propsOptionsLike: false,
+      view: false,
+    });
+
+    vscode.window.showInformationMessage(
+      "Successfully converted to script setup syntax"
+    );
+  } catch (error) {
+    vscode.window.showErrorMessage(
+      `Error converting file: ${error instanceof Error ? error.message : String(error)}`
+    );
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   let convertToSetupDisposable = vscode.commands.registerCommand(
     "vscode-vue-migrator.convertToSetup",
-    async () => {
-      const editor = vscode.window.activeTextEditor;
-
-      if (!editor) {
-        vscode.window.showErrorMessage("No active editor found");
-        return;
-      }
-
-      const document = editor.document;
-
-      if (document.languageId !== "vue") {
-        vscode.window.showErrorMessage(
-          "This command only works with Vue files"
-        );
-        return;
-      }
-
+    async (uri?: vscode.Uri) => {
       try {
-        const text = document.getText();
-        const converted = await convert(text, {
-          propsStyle: getPropsStyleFromConfig(),
-          propsOptionsLike: false,
-        });
+        // If URI is provided (context menu case), use it
+        if (uri) {
+          await convertVueFile(uri);
+          return;
+        }
 
-        const edit = new vscode.WorkspaceEdit();
-        const fullRange = new vscode.Range(
-          document.positionAt(0),
-          document.positionAt(text.length)
-        );
+        // Otherwise use active editor (command palette or editor context menu case)
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+          vscode.window.showErrorMessage("No active editor found");
+          return;
+        }
 
-        edit.replace(document.uri, fullRange, converted.content);
-        await vscode.workspace.applyEdit(edit);
+        const document = editor.document;
+        if (document.languageId !== "vue") {
+          vscode.window.showErrorMessage(
+            "This command only works with Vue files"
+          );
+          return;
+        }
 
-        // Format the document after conversion
-        await formatDocument(document);
-
-        vscode.window.showInformationMessage(
-          "Successfully converted to script setup syntax"
-        );
+        await convertVueFile(document.uri);
       } catch (error) {
         vscode.window.showErrorMessage(
           `Error converting file: ${error instanceof Error ? error.message : String(error)}`

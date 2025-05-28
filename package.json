@@ -88,7 +88,11 @@
         "vueMigrator.propsStyle": {
           "type": "string",
           "default": "reactivity",
-          "enum": ["reactivity", "defineProps", "withDefaults"],
+          "enum": [
+            "reactivity",
+            "defineProps",
+            "withDefaults"
+          ],
           "enumDescriptions": [
             "Convert props to reactivity style (const { prop } = defineProps<{ prop: string }>())",
             "Use defineProps with type annotations",
@@ -118,15 +122,16 @@
     "@types/vscode": "^1.96.1",
     "@typescript-eslint/eslint-plugin": "^8.32.0",
     "@typescript-eslint/parser": "^8.32.0",
+    "@vscode/vsce": "^2.24.0",
     "eslint": "^9.26.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
-    "vite-plugin-node-polyfills": "^0.23.0",
-    "@vscode/vsce": "^2.24.0"
+    "vite-plugin-node-polyfills": "^0.23.0"
   },
   "dependencies": {
+    "prettier": "^3.3.3",
     "vue-comp-to-setup": "^1.2.13",
-    "vue-i18n-migrator": "^1.0.0"
+    "vue-i18n-migrator": "^1.0.12"
   },
   "publisher": "dmgolsh",
   "repository": {

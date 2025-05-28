@@ -21,7 +21,8 @@ export default defineConfig({
         'stream',
         'buffer',
         'process',
-        'vue-comp-to-setup'
+        'vue-comp-to-setup',
+        'vue-i18n-migrator'
       ],
       output: {
         format: "cjs",
@@ -31,6 +32,6 @@ export default defineConfig({
     sourcemap: true,
     outDir: "dist",
     emptyOutDir: true,
-    target: "node16"
+    target: "node22"
   }
 });
