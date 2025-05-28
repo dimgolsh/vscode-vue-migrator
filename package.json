@@ -3,7 +3,7 @@
   "displayName": "Vue Migrator",
   "author": "Dmitriy (https://github.com/dimgolsh)",
   "description": "VS Code extension to convert Vue components to script setup syntax",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.96.1"
