@@ -3,7 +3,7 @@
   "displayName": "Vue Migrator",
   "author": "Dmitriy (https://github.com/dimgolsh)",
   "description": "VS Code extension to convert Vue components to script setup syntax",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.96.1"
@@ -17,7 +17,7 @@
     "commands": [
       {
         "command": "vscode-vue-migrator.convertToSetup",
-        "title": "Convert to Script Setup"
+        "title": "Convert Composition to Script Setup"
       },
       {
         "command": "vscode-vue-migrator.convertPropsToReactivity",
@@ -25,7 +25,7 @@
       },
       {
         "command": "vscode-vue-migrator.convertFolderToSetup",
-        "title": "Convert Folder to Script Setup"
+        "title": "Convert Folder Composition to Script Setup"
       },
       {
         "command": "vscode-vue-migrator.convertI18n",
@@ -34,6 +34,14 @@
       {
         "command": "vscode-vue-migrator.convertI18nFolder",
         "title": "Convert i18n Folder"
+      },
+      {
+        "command": "vscode-vue-migrator.convertClassToComposition",
+        "title": "Convert Class to Composition"
+      },
+      {
+        "command": "vscode-vue-migrator.convertClassToCompositionFolder",
+        "title": "Convert Class to Composition Folder"
       }
     ],
     "menus": {
@@ -62,6 +70,16 @@
           "when": "explorerResourceIsFolder",
           "command": "vscode-vue-migrator.convertI18nFolder",
           "group": "vue-migrator@5"
+        },
+        {
+          "when": "resourceLangId == vue",
+          "command": "vscode-vue-migrator.convertClassToComposition",
+          "group": "vue-migrator@6"
+        },
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "vscode-vue-migrator.convertClassToCompositionFolder",
+          "group": "vue-migrator@7"
         }
       ],
       "editor/context": [
@@ -79,6 +97,11 @@
           "when": "resourceLangId == vue",
           "command": "vscode-vue-migrator.convertI18n",
           "group": "vue-migrator@3"
+        },
+        {
+          "when": "resourceLangId == vue",
+          "command": "vscode-vue-migrator.convertClassToComposition",
+          "group": "vue-migrator@4"
         }
       ]
     },
@@ -130,6 +153,7 @@
   },
   "dependencies": {
     "prettier": "^3.3.3",
+    "vue-class-to-composition": "^1.1.11",
     "vue-comp-to-setup": "^1.2.15",
     "vue-i18n-migrator": "^1.0.13"
   },

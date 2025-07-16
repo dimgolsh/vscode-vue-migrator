@@ -1,6 +1,6 @@
 # Vue Migrator VS Code Extension
 
-VS Code extension for migrating Vue components to the script setup syntax and converting Vue i18n.
+VS Code extension for migrating Vue components to the script setup syntax, converting class components to composition API, and converting Vue i18n.
 
 ## Features
 
@@ -8,6 +8,11 @@ VS Code extension for migrating Vue components to the script setup syntax and co
 - Convert Vue components to script setup syntax
 - Convert props to reactivity syntax
 - Batch convert entire folders
+- Automatic code formatting after conversion
+
+### Class to Composition API Migration
+- Convert Vue class components to composition API
+- Convert entire folders of class components
 - Automatic code formatting after conversion
 
 ### Vue i18n Migration
@@ -19,16 +24,19 @@ VS Code extension for migrating Vue components to the script setup syntax and co
 
 ### Context Menu
 Right-click on a Vue file or folder in the explorer to access:
-- "Convert to Script Setup" - Converts a single file to script setup syntax
+- "Convert Composition to Script Setup" - Converts a single file to script setup syntax
 - "Convert Props to Reactivity" - Converts props to reactivity syntax
-- "Convert Folder to Script Setup" - Converts all Vue files in a folder
+- "Convert Folder Composition to Script Setup" - Converts all Vue files in a folder
+- "Convert Class to Composition" - Converts a single class component to composition API
+- "Convert Class to Composition Folder" - Converts all class components in a folder
 - "Convert Vue i18n" - Converts a single file to i18n syntax
 - "Convert i18n Folder" - Converts all Vue files in a folder to i18n syntax
 
 ### Editor Context Menu
 Right-click in the editor to access:
-- "Convert to Script Setup" - Converts current file
+- "Convert Composition to Script Setup" - Converts current file
 - "Convert Props to Reactivity" - Converts selected code or entire file
+- "Convert Class to Composition" - Converts current class component to composition API
 - "Convert Vue i18n" - Converts current file to i18n syntax
 
 ## Development

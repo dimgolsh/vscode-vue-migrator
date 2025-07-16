@@ -22,7 +22,8 @@ export default defineConfig({
         'buffer',
         'process',
         'vue-comp-to-setup',
-        'vue-i18n-migrator'
+        'vue-i18n-migrator',
+        'vue-class-to-composition'
       ],
       output: {
         format: "cjs",

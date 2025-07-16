@@ -7,6 +7,7 @@ import {
   PropsStyle,
 } from "vue-comp-to-setup";
 import { registerI18nCommands } from "./i18n-converter";
+import { registerClassToCompositionCommands } from "./class-to-composition-converter";
 import { formatDocument } from "./utils";
 
 function getPropsStyleFromConfig(): PropsStyle {
@@ -161,6 +162,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Register i18n commands
   registerI18nCommands(context);
+
+  // Register class-to-composition commands
+  registerClassToCompositionCommands(context);
 
   context.subscriptions.push(
     convertToSetupDisposable,
